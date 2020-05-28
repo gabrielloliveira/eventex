@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.urls import reverse
 
 
 class HomeTest(TestCase):
@@ -12,3 +13,7 @@ class HomeTest(TestCase):
     def test_template(self):
         """Must use core/index.html"""
         self.assertTemplateUsed(self.response, "core/index.html")
+
+    def test_subsctiprion_link(self):
+        link = reverse("subscriptions:subscribe")
+        self.assertContains(self.response, f'href="{link}"')
