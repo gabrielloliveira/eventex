@@ -29,6 +29,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
+DEFAULT_FROM_EMAIL = 'contato@eventex.com.br'
 
 # Application definition
 
