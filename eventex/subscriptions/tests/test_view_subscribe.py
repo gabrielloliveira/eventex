@@ -52,8 +52,8 @@ class SubscribePostValid(TestCase):
         self.response = self.client.post(reverse("subscriptions:subscribe"), data)
 
     def test_post(self):
-        """Valid POST should redirect to 'subscriptions:subscribe'"""
-        self.assertEqual(302, self.response.status_code)
+        """Valid POST should redirect to 'subscriptions:thanks'"""
+        self.assertRedirects(self.response, reverse("subscriptions:thanks", kwargs={'id': 1}))
 
     def test_send_subscribe_email(self):
         self.assertEqual(1, len(mail.outbox))
@@ -83,17 +83,3 @@ class SubscribePostInvalid(TestCase):
 
     def test_has_no_subscription(self):
         self.assertFalse(Subscription.objects.exists())
-
-
-class SubscribeSuccessMessage(TestCase):
-    def setUp(self):
-        data = {
-            'name': 'Gabriell Oliveira',
-            'cpf': '12345678901',
-            'email': 'gabrielloliveira097@gmail.com',
-            'phone': '99-99999-9999'
-        }
-        self.response = self.client.post(reverse("subscriptions:subscribe"), data, follow=True)
-
-    def test_message(self):
-        self.assertContains(self.response, 'Inscrição realizada com sucesso!')
