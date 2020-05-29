@@ -15,3 +15,8 @@ class SubscriptionForm(forms.Form):
     cpf = forms.CharField(label="CPF", required=True, validators=[validate_cpf])
     email = forms.EmailField(label="Email", required=True)
     phone = forms.CharField(label="Telefone", required=True)
+
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        words = [w.capitalize() for w in name.split()]
+        return " ".join(words)
