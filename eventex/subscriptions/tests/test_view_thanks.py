@@ -1,3 +1,5 @@
+import uuid
+
 from django.test import TestCase
 from django.urls import reverse
 
@@ -12,7 +14,7 @@ class SubscriptionThanksGet(TestCase):
             cpf="12345678901",
             phone="99-99999-9999"
         )
-        self.response = self.client.get(reverse("subscriptions:thanks", kwargs={'id': self.obj.id}))
+        self.response = self.client.get(reverse("subscriptions:thanks", kwargs={'uuid': self.obj.uuid}))
 
     def test_get(self):
         self.assertEqual(200, self.response.status_code)
@@ -33,7 +35,7 @@ class SubscriptionThanksGet(TestCase):
 
 class SubscriptionThanksNotFound(TestCase):
     def setUp(self):
-        self.response = self.client.get(reverse("subscriptions:thanks", kwargs={'id': 0}))
+        self.response = self.client.get(reverse("subscriptions:thanks", kwargs={'uuid': uuid.uuid4()}))
 
     def test_not_found(self):
         self.assertEqual(404, self.response.status_code)

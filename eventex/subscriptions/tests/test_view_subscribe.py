@@ -43,17 +43,18 @@ class SubscribeGet(TestCase):
 
 class SubscribePostValid(TestCase):
     def setUp(self):
-        data = {
+        self.data = {
             'name': 'Gabriell Oliveira',
             'cpf': '12345678901',
             'email': 'gabrielloliveira097@gmail.com',
             'phone': '99-99999-9999'
         }
-        self.response = self.client.post(reverse("subscriptions:subscribe"), data)
+        self.response = self.client.post(reverse("subscriptions:subscribe"), self.data)
 
     def test_post(self):
         """Valid POST should redirect to 'subscriptions:thanks'"""
-        self.assertRedirects(self.response, reverse("subscriptions:thanks", kwargs={'id': 1}))
+        subscription = self.response.context['subscription']
+        self.assertRedirects(self.response, reverse("subscriptions:thanks", kwargs={'uuid': subscription.uuid}))
 
     def test_send_subscribe_email(self):
         self.assertEqual(1, len(mail.outbox))

@@ -29,7 +29,7 @@ def create(request):
         {'subscription': subscription}
     )
 
-    return HttpResponseRedirect(reverse("subscriptions:thanks", kwargs={'id': subscription.id}))
+    return HttpResponseRedirect(reverse("subscriptions:thanks", kwargs={'uuid': subscription.uuid}))
 
 
 def new(request):
@@ -41,6 +41,6 @@ def _send_mail(subject, from_, to, template_name, context):
     mail.send_mail(subject, body, from_, [from_, to])
 
 
-def thanks(request, id):
-    subscription = get_object_or_404(Subscription, id=id)
+def thanks(request, uuid):
+    subscription = get_object_or_404(Subscription, uuid=uuid)
     return render(request, "subscriptions/thanks.html", {'subscription': subscription})
