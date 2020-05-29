@@ -12,7 +12,11 @@ from .models import Subscription
 def subscribe(request):
     if request.POST:
         return create(request)
-    return new(request)
+    return empty_form(request)
+
+
+def empty_form(request):
+    return render(request, "subscriptions/subscription_form.html", {'form': SubscriptionForm()})
 
 
 def create(request):
@@ -30,10 +34,6 @@ def create(request):
     )
 
     return HttpResponseRedirect(reverse("subscriptions:thanks", kwargs={'uuid': subscription.uuid}))
-
-
-def new(request):
-    return render(request, "subscriptions/subscription_form.html", {'form': SubscriptionForm()})
 
 
 def _send_mail(subject, from_, to, template_name, context):

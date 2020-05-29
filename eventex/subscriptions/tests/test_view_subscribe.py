@@ -6,7 +6,7 @@ from eventex.subscriptions.forms import SubscriptionForm
 from eventex.subscriptions.models import Subscription
 
 
-class SubscribeGet(TestCase):
+class SubscriptionsNewGet(TestCase):
     def setUp(self):
         self.response = self.client.get(reverse("subscriptions:subscribe"))
 
@@ -41,7 +41,7 @@ class SubscribeGet(TestCase):
         self.assertIsInstance(form, SubscriptionForm)
 
 
-class SubscribePostValid(TestCase):
+class SubscriptionsNewPost(TestCase):
     def setUp(self):
         self.data = {
             'name': 'Gabriell Oliveira',
@@ -63,7 +63,7 @@ class SubscribePostValid(TestCase):
         self.assertTrue(Subscription.objects.exists())
 
 
-class SubscribePostInvalid(TestCase):
+class SubscriptionsNewPostInvalid(TestCase):
     def setUp(self):
         self.response = self.client.post(reverse("subscriptions:subscribe"), {})
 
