@@ -39,3 +39,7 @@ class HomeTest(TestCase):
     def test_speaker_link(self):
         expected = f'href="{reverse("core:home")}#speakers"'
         self.assertContains(self.response, expected)
+
+    def test_talks_link(self):
+        expected = f'href="{reverse("core:talks")}"'
+        self.assertContains(self.response, expected)

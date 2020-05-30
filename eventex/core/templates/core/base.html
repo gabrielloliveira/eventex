@@ -33,11 +33,12 @@
     <nav class="nav-inline" role="navigation">
       <a href="javascript:void(0);" class="nav-mobile"><i class="fa fa-bars"></i></a>
       <ul>
-        <li><a data-scroll href="/#overview">Conferência</a></li>
-        <li><a data-scroll href="/#speakers">Palestrantes</a></li>
-        <li><a data-scroll href="/#sponsors">Patrocinadores</a></li>
-        <li><a data-scroll href="/#register">Inscrição</a></li>
-        <li><a data-scroll href="/#venue">Local</a></li>
+        <li><a data-scroll href="{% url 'core:home' %}#overview">Conferência</a></li>
+        <li><a data-scroll href="{% url 'core:talks' %}">Palestras</a></li>
+        <li><a data-scroll href="{% url 'core:home' %}#speakers">Palestrantes</a></li>
+        <li><a data-scroll href="{% url 'core:home' %}#sponsors">Patrocinadores</a></li>
+        <li><a data-scroll href="{% url 'core:home' %}#register">Inscrição</a></li>
+        <li><a data-scroll href="{% url 'core:home' %}#venue">Local</a></li>
       </ul>
     </nav>
 
