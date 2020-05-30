@@ -3,6 +3,8 @@ from django.urls import reverse
 
 
 class HomeTest(TestCase):
+    fixtures = ['keynotes.json']
+
     def setUp(self):
         self.response = self.client.get('/')
 
@@ -20,8 +22,16 @@ class HomeTest(TestCase):
 
     def test_speakers(self):
         """Must show keynote speakers."""
-        contents = ["Grace Hopper", "http://hbn.link/hopper-pic",
-                    "Alan Turing", "http://hbn.link/turing-pic"]
+        kwargs_grace = {'slug': 'grace-hopper'}
+        kwargs_turing = {'slug': 'alan-turing'}
+        contents = [
+            "Grace Hopper",
+            "http://hbn.link/hopper-pic",
+            f'href="{reverse("core:speaker-detail", kwargs=kwargs_grace)}"',
+            "Alan Turing",
+            "http://hbn.link/turing-pic",
+            f'href="{reverse("core:speaker-detail", kwargs=kwargs_turing)}"',
+        ]
         for content in contents:
             with self.subTest():
                 self.assertContains(self.response, content)
