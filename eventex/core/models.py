@@ -18,3 +18,24 @@ class Speaker(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Contact(models.Model):
+    EMAIL = 'E'
+    PHONE = 'P'
+
+    KINDS = (
+        (EMAIL, 'Email'),
+        (PHONE, 'Telefone'),
+    )
+
+    speaker = models.ForeignKey('Speaker', verbose_name='palestrante', on_delete=models.CASCADE)
+    kind = models.CharField('tipo do contato', max_length=1, choices=KINDS)
+    value = models.CharField('valor', max_length=255)
+
+    class Meta:
+        verbose_name_plural = 'contatos'
+        verbose_name = 'contato'
+
+    def __str__(self):
+        return self.value
