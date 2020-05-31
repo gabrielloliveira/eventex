@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 
+from eventex.core.managers import KindQuerySet, PeriodManager
+
 
 class Speaker(models.Model):
     name = models.CharField('nome', max_length=255)
@@ -33,6 +35,8 @@ class Contact(models.Model):
     kind = models.CharField('tipo do contato', max_length=1, choices=KINDS)
     value = models.CharField('valor', max_length=255)
 
+    objects = KindQuerySet.as_manager()
+
     class Meta:
         verbose_name_plural = 'contatos'
         verbose_name = 'contato'
@@ -46,6 +50,8 @@ class Talk(models.Model):
     start = models.TimeField('hora', blank=True, null=True)
     description = models.TextField('descrição', blank=True)
     speakers = models.ManyToManyField('Speaker', verbose_name='palestrantes', blank=True)
+
+    objects = PeriodManager()
 
     class Meta:
         verbose_name_plural = 'palestras'
